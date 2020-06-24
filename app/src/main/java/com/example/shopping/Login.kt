@@ -2,16 +2,15 @@ package com.example.shopping
 
 import android.app.ProgressDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.widget.TextView
-import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuth
-import android.widget.EditText
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 
 private val TAG = "Login"
 //global variables
@@ -42,9 +41,15 @@ class Login : AppCompatActivity() {
         mProgressBar = ProgressDialog(this)
         mAuth = FirebaseAuth.getInstance()
         btnCreateAccount!!
-            .setOnClickListener { startActivity(Intent(this@Login,
-                CreateAccount::class.java)) }
-        btnLogin!!.setOnClickListener { loginUser() }
+            .setOnClickListener {
+              /*  startActivity(Intent(this@Login,
+                CreateAccount::class.java)) */
+                startActivity(Intent(this@Login,
+                    ProductList::class.java))
+            }
+        btnLogin!!.setOnClickListener {
+            loginUser()
+        }
     }
 
     private fun loginUser() {

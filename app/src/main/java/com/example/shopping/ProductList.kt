@@ -1,54 +1,40 @@
 package com.example.shopping
 
-import Helper.ProductAdapter
-import androidx.appcompat.app.AppCompatActivity
+import Helper.ProductNewAdapter
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
+import kotlinx.android.synthetic.main.activity_product_list.*
 
 class ProductList : AppCompatActivity() {
 
-    private var layoutManager: GridLayoutManager? = null
-    private var adapter: ProductAdapter? = null
-    private lateinit var recyclerView: RecyclerView
+    private var layoutManager: LinearLayoutManager? = null
+    private var adapter: ProductNewAdapter? = null
+    //private lateinit var recyclerView: RecyclerView
+    lateinit var recyclerView : RecyclerView
+
+    private val list = ArrayList<ProductModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_list)
 
-        layoutManager = GridLayoutManager(this, 3)
-        adapter = ProductAdapter(layoutManager)
-
-        recyclerView = findViewById<RecyclerView>(R.id.recycler_view).apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-            setHasFixedSize(true)
-
-            // use a linear layout manager
-            layoutManager = layoutManager
-
-            // specify an viewAdapter (see also next example)
-            adapter = adapter
-
-        }
-
+        val p1=ProductModel("name 1","detail")
+        val p2=ProductModel("name 2","detail")
+        list.add(p1)
+        list.add(p2)
+        setAdapter()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-//            R.id.change_layout -> {
-//                if (layoutManager?.spanCount == 1) {
-//                    layoutManager?.spanCount = 3
-//                    item.title = "list"
-//                } else {
-//                    layoutManager?.spanCount = 1
-//                    item.title = "grid"
-//                }
-//                adapter?.notifyItemRangeChanged(0, adapter?.itemCount ?: 0)
-//            }
+    private fun setAdapter() {
+        recyclerView  =recycler_view
+        recyclerView.apply {
+            // set a LinearLayoutManager to handle Android
+            // RecyclerView behavior
+            layoutManager = LinearLayoutManager(this@ProductList!!)
+            // set the custom adapter to the RecyclerView
+            recyclerView.adapter = ProductNewAdapter(this@ProductList!!,list!!)
         }
-        return super.onOptionsItemSelected(item)
     }
 }

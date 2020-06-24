@@ -1,3 +1,4 @@
+/*
 package Helper
 
 import android.util.Log
@@ -63,3 +64,4 @@ class ProductAdapter(private val layoutManager: GridLayoutManager? = null) : Rec
         else ViewType.SMALL.ordinal
     }
 }
+*/
