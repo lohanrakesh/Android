@@ -26,6 +26,7 @@ class ProductNewAdapter(var mCtx: Activity?, var models: List<ProductModel>) : R
         var tvName: TextView
         var tvDetail: TextView
         var tvPrice: TextView
+        var tvQuantity: TextView
         var ivProductImage: ImageView
         var llRoot: LinearLayout
 
@@ -33,7 +34,8 @@ class ProductNewAdapter(var mCtx: Activity?, var models: List<ProductModel>) : R
         init {
             tvName = itemView.findViewById(R.id.tvName)
             tvDetail = itemView.findViewById(R.id.tvDetail)
-            tvPrice = itemView.findViewById(R.id.textView)
+            tvPrice = itemView.findViewById(R.id.tvPrice)
+            tvQuantity = itemView.findViewById(R.id.tvQuantity)
             ivProductImage = itemView.findViewById(R.id.imageView)
             llRoot = itemView.findViewById(R.id.llRoot)
         }
