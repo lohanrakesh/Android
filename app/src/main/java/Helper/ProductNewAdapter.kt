@@ -25,12 +25,16 @@ class ProductNewAdapter(var mCtx: Activity?, var models: List<ProductModel>) : R
     inner class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvName: TextView
         var tvDetail: TextView
+        var tvPrice: TextView
+        var ivProductImage: ImageView
         var llRoot: LinearLayout
 
 
         init {
             tvName = itemView.findViewById(R.id.tvName)
             tvDetail = itemView.findViewById(R.id.tvDetail)
+            tvPrice = itemView.findViewById(R.id.textView)
+            ivProductImage = itemView.findViewById(R.id.imageView)
             llRoot = itemView.findViewById(R.id.llRoot)
         }
     }
