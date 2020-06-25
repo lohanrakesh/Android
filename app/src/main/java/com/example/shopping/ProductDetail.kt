@@ -1,6 +1,5 @@
 package com.example.shopping
 
-import android.R
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
