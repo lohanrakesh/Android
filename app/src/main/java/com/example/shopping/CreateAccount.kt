@@ -93,9 +93,9 @@ class CreateAccount : AppCompatActivity() {
 
         private fun updateUserInfoAndUI() {
             //start next activity
-           /* val intent = Intent(this@CreateAccount, ProductList::class.java)
+            val intent = Intent(this@CreateAccount, ProductList::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)*/
+            startActivity(intent)
         }
 
         private fun verifyEmail() {

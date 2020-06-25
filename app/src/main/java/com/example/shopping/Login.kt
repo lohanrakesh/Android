@@ -42,10 +42,10 @@ class Login : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
         btnCreateAccount!!
             .setOnClickListener {
-              /*  startActivity(Intent(this@Login,
-                CreateAccount::class.java)) */
                 startActivity(Intent(this@Login,
-                    ProductList::class.java))
+                CreateAccount::class.java))
+               /*startActivity(Intent(this@Login,
+                    ProductList::class.java))*/
             }
         btnLogin!!.setOnClickListener {
             loginUser()

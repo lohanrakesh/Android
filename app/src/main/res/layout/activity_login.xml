@@ -24,7 +24,8 @@
         android:background="@color/colorAccent"
         android:text="@string/login_title"
         android:textColor="@android:color/white"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textSize="18sp" />
     <Button
         android:id="@+id/btn_register_account"
         style="@style/viewCustom"
@@ -32,5 +33,6 @@
         android:background="@color/colorAccent"
         android:text="@string/create_act"
         android:textColor="@android:color/white"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textSize="18sp" />
 </RelativeLayout>
