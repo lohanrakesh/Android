@@ -63,9 +63,7 @@ class CreateAccount : AppCompatActivity() {
                 && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
                 mProgressBar!!.setMessage("Registering User...")
                 mProgressBar!!.show()
-                mAuth!!
-                    .createUserWithEmailAndPassword(email!!, password!!)
-                    .addOnCompleteListener(this) { task ->
+                mAuth!!.createUserWithEmailAndPassword(email!!, password!!).addOnCompleteListener(this) { task ->
                         mProgressBar!!.hide()
 
                         if (task.isSuccessful) {
@@ -81,7 +79,7 @@ class CreateAccount : AppCompatActivity() {
                             updateUserInfoAndUI()
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                            Log.d(TAG, "createUserWithEmail:failure", task.exception)
                             Toast.makeText(this@CreateAccount, "Authentication failed.",
                                 Toast.LENGTH_SHORT).show()
                         }
