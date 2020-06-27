@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +20,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.lang.reflect.Type
 
-class ProductList : AppCompatActivity(),ClickPosInter {
+class CartList : AppCompatActivity(),ClickPosInter {
 
     private var layoutManager: LinearLayoutManager? = null
     private var adapter: ProductNewAdapter? = null
@@ -37,14 +38,8 @@ class ProductList : AppCompatActivity(),ClickPosInter {
 
         getListFromAssets()
         setAdapter()
-
-        tvMoveToCart.setOnClickListener {
-            setValueToPref()
-            val intent = Intent(this@ProductList, CartList::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)
-
-        }
+        tvMoveToCart.visibility= View.GONE
+        toggleBtn.visibility=View.GONE
 
         toggleBtn.setOnCheckedChangeListener { _, isChecked ->
             isGrid=isChecked
@@ -62,17 +57,17 @@ class ProductList : AppCompatActivity(),ClickPosInter {
             recyclerView.apply {
                 // set a LinearLayoutManager to handle Android
                 // RecyclerView behavior
-                layoutManager = GridLayoutManager(this@ProductList!!,2)
+                layoutManager = GridLayoutManager(this@CartList!!,2)
                 // set the custom adapter to the RecyclerView
-                recyclerView.adapter = ProductNewAdapter(this@ProductList!!,list!!)
+                recyclerView.adapter = ProductNewAdapter(this@CartList!!,list!!)
             }
         }else{
             recyclerView.apply {
                 // set a LinearLayoutManager to handle Android
                 // RecyclerView behavior
-                layoutManager = LinearLayoutManager(this@ProductList!!)
+                layoutManager = LinearLayoutManager(this@CartList!!)
                 // set the custom adapter to the RecyclerView
-                recyclerView.adapter = ProductNewAdapter(this@ProductList!!,list!!)
+                recyclerView.adapter = ProductNewAdapter(this@CartList!!,list!!)
             }
         }
 
@@ -94,7 +89,6 @@ class ProductList : AppCompatActivity(),ClickPosInter {
         setValueToPref()
         super.onDestroy()
     }
-
     fun setValueToPref(){
         var product:String
 
@@ -121,7 +115,6 @@ class ProductList : AppCompatActivity(),ClickPosInter {
         println(">>>>>>>>>>>>>>"+product)
         SharePrefUtils.setString(this,SharePrefUtils.PERF_KEY_PRODUCT,product)
     }
-
     fun getListFromAssets(){
 
         var product= SharePrefUtils.getString(this,SharePrefUtils.PERF_KEY_PRODUCT,"")
@@ -147,9 +140,15 @@ class ProductList : AppCompatActivity(),ClickPosInter {
      """.trimIndent()
             )
         }
-
         list.clear()
         list.addAll(users)
+        val listTemp = ArrayList<ProductModel1>()
+        for (model in list){
+            if(model.isAddedToCart==0){
+                listTemp.add(model)
+            }
+        }
+        list.removeAll(listTemp)
     }
 
     override fun click(pos: Int, isAdd: Boolean) {
@@ -167,10 +166,11 @@ class ProductList : AppCompatActivity(),ClickPosInter {
 
     override fun add(pos: Int, model1: ProductModel1)
     {
-        if(list.get(pos).isAddedToCart==0){
-            list.get(pos).isAddedToCart=1
-        }else{
-            list.get(pos).isAddedToCart=0
+        for (model in list){
+            if(model.productCode==model1.productCode){
+                list.remove(model)
+                break
+            }
         }
         setAdapter()
     }
