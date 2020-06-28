@@ -12,12 +12,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_product_list.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.lang.reflect.Type
+
 
 class ProductList : AppCompatActivity(),ClickPosInter {
 
@@ -37,6 +39,12 @@ class ProductList : AppCompatActivity(),ClickPosInter {
 
         getListFromAssets()
         setAdapter()
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user == null) {
+            tvLogin.setText("Login")
+        }else {
+            tvLogin.setText("Account")
+        }
 
         tvMoveToCart.setOnClickListener {
             setValueToPref()
@@ -47,10 +55,16 @@ class ProductList : AppCompatActivity(),ClickPosInter {
         }
         tvLogin.setOnClickListener {
             setValueToPref()
-            val intent = Intent(this@ProductList, Login::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)
-
+            Log.i("user loged in:- ", user.toString())
+            if (user == null)  {
+                val intent = Intent(this@ProductList, Login::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+            }else {
+                val intent = Intent(this@ProductList, Account::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+            }
         }
 
         toggleBtn.setOnCheckedChangeListener { _, isChecked ->

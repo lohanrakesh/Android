@@ -21,10 +21,8 @@ class SplashScreen : AppCompatActivity() {
         mDelayHandler!!.postDelayed(mRunnable, SPLASH_DELAY)
     }
 
-
-
-    private fun launchLoginActivity() {
-        var intent = Intent(this, Login::class.java)
+    private fun launchProductListActivity() {
+        var intent = Intent(this, ProductList::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         startActivity(intent)
         this.finish()
@@ -52,7 +50,7 @@ class SplashScreen : AppCompatActivity() {
 
             //splash_screen_progress_bar.setProgress(10)
 
-            launchLoginActivity()
+            launchProductListActivity()
 
 
         }).start()
