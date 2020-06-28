@@ -63,7 +63,7 @@ class ProductNewAdapter(var mCtx: Activity?, var models: List<ProductModel1>) : 
        /* holder.llRoot.setOnClickListener(View.OnClickListener {
           Toast.makeText(mCtx,"WIP", Toast.LENGTH_LONG).show()
         })*/
-
+        holder.button.visibility=View.GONE
         if(model.isAddedToCart==0){
             holder.button.text="Add to card"
         }else{
@@ -73,18 +73,22 @@ class ProductNewAdapter(var mCtx: Activity?, var models: List<ProductModel1>) : 
         Utils.laodGlide(mCtx,model.image1,holder.ivProductImage)
 
         holder.tvAdd.setOnClickListener {
-            (mCtx as ClickPosInter).click(position,true)
+            (mCtx as ClickPosInter).click(position,true,model)
         }
 
-        holder.button.setOnClickListener {
+       /* holder.button.setOnClickListener {
+            (mCtx as ClickPosInter).add(position,model)
+        }*/
+        holder.llRoot.setOnClickListener {
             (mCtx as ClickPosInter).add(position,model)
         }
 
         holder.tvSub.setOnClickListener {
-            if(model.quantityInCart>=1){
+            (mCtx as ClickPosInter).click(position,false,model)
+            /*if(model.quantityInCart>=1){
                 model.quantityInCart--
                 holder.tvQty.text=model.quantityInCart.toString()
-            }
+            }*/
         }
     }
 }

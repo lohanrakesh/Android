@@ -1,13 +1,11 @@
 package com.example.shopping
 
-import Helper.ClickPosInter
-import Helper.ProductNewAdapter
-import Helper.SharePrefUtils
-import Helper.Utils
+import Helper.*
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,8 +16,10 @@ import kotlinx.android.synthetic.main.activity_product_list.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.lang.reflect.Type
+import java.util.*
+import kotlin.collections.ArrayList
 
-class ProductList : AppCompatActivity(),ClickPosInter {
+class HistoryList : AppCompatActivity(),ClickPosInter {
 
     private var layoutManager: LinearLayoutManager? = null
     private var adapter: ProductNewAdapter? = null
@@ -27,30 +27,29 @@ class ProductList : AppCompatActivity(),ClickPosInter {
     lateinit var recyclerView : RecyclerView
 
     //private val list = ArrayList<ProductModel>()
-    private val list = ArrayList<ProductModel1>()
+    private val list = ArrayList<HistroyModel>()
 
     private var isGrid:Boolean=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_list)
-        tvHistory.setOnClickListener {
-            setValueToPref()
-            val intent = Intent(this@ProductList, HistoryList::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)
 
-        }
+        llTop.visibility=View.GONE
+        toggleBtn.visibility=View.GONE
+        getListFromAssets()
+        setAdapter()
+
         tvMoveToCart.setOnClickListener {
             setValueToPref()
-            val intent = Intent(this@ProductList, CartList::class.java)
+            val intent = Intent(this@HistoryList, CartList::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
 
         }
         tvLogin.setOnClickListener {
             setValueToPref()
-            val intent = Intent(this@ProductList, Login::class.java)
+            val intent = Intent(this@HistoryList, Login::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
 
@@ -66,35 +65,29 @@ class ProductList : AppCompatActivity(),ClickPosInter {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        getListFromAssets()
-        setAdapter()
-    }
-
     private fun setAdapter() {
         recyclerView  =recycler_view
         if(isGrid){
             recyclerView.apply {
                 // set a LinearLayoutManager to handle Android
                 // RecyclerView behavior
-                layoutManager = GridLayoutManager(this@ProductList!!,2)
+                layoutManager = GridLayoutManager(this@HistoryList!!,2)
                 // set the custom adapter to the RecyclerView
-                recyclerView.adapter = ProductNewAdapter(this@ProductList!!,list!!)
+                recyclerView.adapter = HistoryAdapter(this@HistoryList!!,list!!)
             }
         }else{
             recyclerView.apply {
                 // set a LinearLayoutManager to handle Android
                 // RecyclerView behavior
-                layoutManager = LinearLayoutManager(this@ProductList!!)
+                layoutManager = LinearLayoutManager(this@HistoryList!!)
                 // set the custom adapter to the RecyclerView
-                recyclerView.adapter = ProductNewAdapter(this@ProductList!!,list!!)
+                recyclerView.adapter = HistoryAdapter(this@HistoryList!!,list!!)
             }
         }
 
     }
 
-  /*  override fun onResume() {
+    override fun onResume() {
         super.onResume()
         var product= SharePrefUtils.getString(this,SharePrefUtils.PERF_KEY_PRODUCT,"")
 
@@ -104,7 +97,7 @@ class ProductList : AppCompatActivity(),ClickPosInter {
             Log.i("data", product)
         }
         SharePrefUtils.setString(this,SharePrefUtils.PERF_KEY_PRODUCT,product)
-    }*/
+    }
 
     override fun onDestroy() {
         setValueToPref()
@@ -112,35 +105,18 @@ class ProductList : AppCompatActivity(),ClickPosInter {
     }
 
     fun setValueToPref(){
-        var product:String
 
-        var jarr:JSONArray =JSONArray()
-        var jsonObject:JSONObject
-
-        for(model in list){
-            jsonObject =JSONObject()
-            jsonObject.put(SharePrefUtils.productId,model.productId)
-            jsonObject.put(SharePrefUtils.productName,model.productName)
-            jsonObject.put(SharePrefUtils.productCode,model.productCode)
-            jsonObject.put(SharePrefUtils.releaseDate,model.releaseDate)
-            jsonObject.put(SharePrefUtils.description,model.description)
-            jsonObject.put(SharePrefUtils.price,model.price)
-            jsonObject.put(SharePrefUtils.quantityInCart,model.quantityInCart)
-            jsonObject.put(SharePrefUtils.maxQuantity,model.maxQuantity)
-            jsonObject.put(SharePrefUtils.isAddedToCart,model.isAddedToCart)
-            jsonObject.put(SharePrefUtils.isAddedToCart,model.isAddedToCart)
-            jsonObject.put(SharePrefUtils.image1,model.image1)
-            jsonObject.put(SharePrefUtils.image2,model.image2)
-            jarr.put(jsonObject)
-        }
-        product= jarr.toString()
-        println(">>>>>>>>>>>>>>"+product)
-        SharePrefUtils.setString(this,SharePrefUtils.PERF_KEY_PRODUCT,product)
     }
 
     fun getListFromAssets(){
 
-        var product= SharePrefUtils.getString(this,SharePrefUtils.PERF_KEY_PRODUCT,"")
+        list.add(HistroyModel(12345,Date().toString(),"address 1"))
+        list.add(HistroyModel(12346,Date().toString(),"address 1"))
+        list.add(HistroyModel(12347,Date().toString(),"address 1"))
+        list.add(HistroyModel(12348,Date().toString(),"address 1"))
+        list.add(HistroyModel(12349,Date().toString(),"address 1"))
+
+        /*var product= SharePrefUtils.getString(this,SharePrefUtils.PERF_KEY_PRODUCT,"")
 
         if(TextUtils.isEmpty(product)){
             product =
@@ -165,34 +141,18 @@ class ProductList : AppCompatActivity(),ClickPosInter {
         }
 
         list.clear()
-        list.addAll(users)
+        list.addAll(users)*/
     }
 
-    override fun click(pos: Int, isAdd: Boolean,model1: ProductModel1) {
-        if(isAdd){
-            if(list.get(pos).quantityInCart<100){
-                list.get(pos).quantityInCart++
-            }
-        }else{
-            if(list.get(pos).quantityInCart>=1){
-                list.get(pos).quantityInCart--
-            }
-        }
-        setAdapter()
+
+    override fun click(pos: Int, isAdd: Boolean, model1: ProductModel1)
+    {
+        TODO("Not yet implemented")
     }
 
     override fun add(pos: Int, model1: ProductModel1)
     {
-        setValueToPref()
-        val intent = Intent(this@ProductList, ProductDetail::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        intent.putExtra(SharePrefUtils.PERF_KEY_PUT_EXTRA,model1)
-        startActivity(intent)
-        /*if(list.get(pos).isAddedToCart==0){
-            list.get(pos).isAddedToCart=1
-        }else{
-            list.get(pos).isAddedToCart=0
-        }
-        setAdapter()*/
+
     }
+
 }

@@ -13,7 +13,7 @@
         android:scaleType="fitXY"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/image_1"
-         />
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,14 +22,14 @@
         android:padding="10dp"
         >
         <TextView
-        android:id="@+id/tvPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="left"
-        android:text="Price"
-        android:textSize="12sp"
-        android:layout_weight="1"/>
+            android:id="@+id/tvPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="left"
+            android:text="Price"
+            android:textSize="12sp"
+            android:layout_weight="1"/>
 
         <TextView
             android:id="@+id/tvQuantity"
@@ -50,11 +50,11 @@
         >
         <TextView
             android:id="@+id/tvAdd"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:text="+"
             android:padding="10dp"
-            android:background="@color/colorBlack"
+            android:background="@color/colorAccent"
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center"
@@ -66,18 +66,19 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="100"
+            android:gravity="center_vertical"
             android:padding="10dp"
             android:textSize="20sp"
             android:textStyle="bold"
             />
         <TextView
             android:id="@+id/tvSub"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:text="-"
             android:gravity="center"
             android:padding="10dp"
-            android:background="@color/colorBlack"
+            android:background="@color/colorAccent"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/colorWhite"
@@ -105,9 +106,10 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:text="@string/CartButton"
-    android:background="@color/colorAccent"
-    android:textColor="@android:color/white"
-    android:textStyle="bold"
-    android:textSize="18sp" />
+        android:visibility="gone"
+        android:background="@color/colorAccent"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="18sp" />
 
 </LinearLayout>
