@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_cart_list.*
@@ -42,13 +43,19 @@ class CartList : AppCompatActivity(),ClickPosInter {
         setContentView(R.layout.activity_cart_list)
         tvShipment.setOnClickListener {
             setValueToPref()
-
+            val user = FirebaseAuth.getInstance().currentUser
+            if (user == null) {
+                val intent = Intent(this@CartList, Login::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+            }else {
             if(recyclerView.adapter!!.itemCount>0){
                 val intent = Intent(this@CartList, Shipment::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }else{
-                Toast.makeText(this@CartList,"No item",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@CartList, "No item", Toast.LENGTH_LONG).show()
+                }
             }
         }
 
