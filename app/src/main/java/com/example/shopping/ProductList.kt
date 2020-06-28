@@ -45,6 +45,13 @@ class ProductList : AppCompatActivity(),ClickPosInter {
             startActivity(intent)
 
         }
+        tvLogin.setOnClickListener {
+            setValueToPref()
+            val intent = Intent(this@ProductList, Login::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
+
+        }
 
         toggleBtn.setOnCheckedChangeListener { _, isChecked ->
             isGrid=isChecked
