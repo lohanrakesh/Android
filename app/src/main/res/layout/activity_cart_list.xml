@@ -6,7 +6,6 @@
     android:orientation="vertical"
     >
     <LinearLayout
-        android:id="@+id/llTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -17,11 +16,12 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="Go to cart"
+            android:visibility="gone"
             android:gravity="center"
             android:padding="8dp"
             android:layout_margin="10dp"
             android:textColor="@color/colorWhite"
-            android:background="@color/colorAccent"
+            android:background="@color/colorBlack"
             />
         <TextView
             android:id="@+id/tvLogin"
@@ -29,19 +29,20 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="Login"
+            android:visibility="gone"
             android:gravity="center"
             android:padding="8dp"
             android:layout_margin="10dp"
             android:textColor="@color/colorWhite"
-            android:background="@color/colorAccent"
+            android:background="@color/colorBlack"
             />
 
         <TextView
-            android:id="@+id/tvHistory"
+            android:id="@+id/tvShipment"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="History"
+            android:text="Shipment"
             android:gravity="center"
             android:textColor="@color/colorWhite"
             android:background="@color/colorAccent"
@@ -53,6 +54,7 @@
         android:id="@+id/toggleBtn"
         android:layout_gravity="right"
         android:layout_width="100dp"
+        android:visibility="gone"
         android:layout_margin="10dp"
         android:layout_height="wrap_content">
     </ToggleButton>

@@ -36,6 +36,12 @@ class ProductList : AppCompatActivity(),ClickPosInter {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_list)
+        tvHistory.setOnClickListener {
+            setValueToPref()
+            val intent = Intent(this@ProductList, HistoryList::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
+        }
 
         getListFromAssets()
         setAdapter()
@@ -77,6 +83,12 @@ class ProductList : AppCompatActivity(),ClickPosInter {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        getListFromAssets()
+        setAdapter()
+    }
+
     private fun setAdapter() {
         recyclerView  =recycler_view
         if(isGrid){
@@ -99,7 +111,7 @@ class ProductList : AppCompatActivity(),ClickPosInter {
 
     }
 
-    override fun onResume() {
+  /*  override fun onResume() {
         super.onResume()
         var product= SharePrefUtils.getString(this,SharePrefUtils.PERF_KEY_PRODUCT,"")
 
@@ -109,7 +121,7 @@ class ProductList : AppCompatActivity(),ClickPosInter {
             Log.i("data", product)
         }
         SharePrefUtils.setString(this,SharePrefUtils.PERF_KEY_PRODUCT,product)
-    }
+    }*/
 
     override fun onDestroy() {
         setValueToPref()
@@ -173,7 +185,7 @@ class ProductList : AppCompatActivity(),ClickPosInter {
         list.addAll(users)
     }
 
-    override fun click(pos: Int, isAdd: Boolean) {
+    override fun click(pos: Int, isAdd: Boolean,model1: ProductModel1) {
         if(isAdd){
             if(list.get(pos).quantityInCart<100){
                 list.get(pos).quantityInCart++
@@ -188,12 +200,16 @@ class ProductList : AppCompatActivity(),ClickPosInter {
 
     override fun add(pos: Int, model1: ProductModel1)
     {
-        if(list.get(pos).isAddedToCart==0){
+        setValueToPref()
+        val intent = Intent(this@ProductList, ProductDetail::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.putExtra(SharePrefUtils.PERF_KEY_PUT_EXTRA,model1)
+        startActivity(intent)
+        /*if(list.get(pos).isAddedToCart==0){
             list.get(pos).isAddedToCart=1
         }else{
             list.get(pos).isAddedToCart=0
         }
-        setAdapter()
+        setAdapter()*/
     }
-
 }

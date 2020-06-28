@@ -11,6 +11,7 @@ public class SharePrefUtils {
 
     private static final String MY_PREFERENCES = "MyPrefs";
     public static final String PERF_KEY_PRODUCT = "PERF_KEY_PRODUCT";
+    public static final String PERF_KEY_PUT_EXTRA = "PERF_KEY_PUT_EXTRA";
 
     public static final String productId = "productId";
     public static final String productName = "productName";
